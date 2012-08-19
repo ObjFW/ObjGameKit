@@ -22,14 +22,29 @@
 
 #import <ObjFW/ObjFW.h>
 
-@interface OGKDisplay: OFObject
+typedef struct ogk_color_t {
+	float red, green, blue, alpha;
+} ogk_color_t;
+
+static OF_INLINE ogk_color_t
+ogk_color(float red, float green, float blue, float alpha)
 {
-	ALLEGRO_DISPLAY *display;
+	ogk_color_t color = { red, green, blue, alpha};
+
+	return color;
 }
 
-- initWithSize: (of_dimension_t)size
-    fullscreen: (BOOL)fullscreen
-     resizable: (BOOL)resizable;
-- (void)update;
-- (ALLEGRO_DISPLAY*)OGK_allegroDisplay;
+extern ogk_color_t OGK_COLOR_BLACK;
+
+@interface OGKBitmap: OFObject
+{
+	ALLEGRO_BITMAP *bitmap;
+}
+
++ (void)setTarget: (id)target;
++ (void)clearToColor: (ogk_color_t)color;
+- initWithSize: (of_dimension_t)size;
+- initWithFile: (OFString*)file;
+- (void)drawAtPosition: (of_point_t)position;
+- (ALLEGRO_BITMAP*)OGK_allegroBitmap;
 @end

@@ -22,11 +22,13 @@
 
 #import "OGKDisplay.h"
 #import "OGKEventQueue.h"
+#import "OGKBitmap.h"
 
 @interface TestMain: OFObject <OFApplicationDelegate, OGKEventQueueDelegate>
 {
 	OGKDisplay *display;
 	OGKEventQueue *eventQueue;
+	OGKBitmap *bitmap;
 	BOOL running;
 }
 @end

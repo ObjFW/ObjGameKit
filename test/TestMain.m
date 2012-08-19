@@ -21,6 +21,7 @@
 #import "OGKDisplay.h"
 #import "OGKEvent.h"
 #import "OGKEventQueue.h"
+#import "OGKBitmap.h"
 #import "TestMain.h"
 
 OF_APPLICATION_DELEGATE(TestMain)
@@ -64,6 +65,18 @@ OF_APPLICATION_DELEGATE(TestMain)
 	    event.wheel.x, event.wheel.y);
 }
 
+- (void)handleEvents
+{
+	[eventQueue handleNextEvent];
+}
+
+- (void)draw
+{
+	[OGKBitmap clearToColor: OGK_COLOR_BLACK];
+	[bitmap drawAtPosition: of_point(160, 120)];
+	[display update];
+}
+
 - (void)applicationDidFinishLaunching
 {
 	display = [[OGKDisplay alloc] initWithSize: of_dimension(640, 480)
@@ -76,9 +89,12 @@ OF_APPLICATION_DELEGATE(TestMain)
 	[eventQueue registerKeyboard];
 	[eventQueue registerMouse];
 
+	bitmap = [[OGKBitmap alloc] initWithFile: @"test.bmp"];
+
 	for (running = YES; running;) {
 		@autoreleasepool {
-			[eventQueue handleNextEvent];
+			[self handleEvents];
+			[self draw];
 		}
 	}
 }
