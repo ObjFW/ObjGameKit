@@ -80,8 +80,17 @@ OF_APPLICATION_DELEGATE(TestMain)
 - (void)applicationDidFinishLaunching
 {
 	display = [[OGKDisplay alloc] initWithSize: of_dimension(640, 480)
+					  position: of_point(200, 200)
 					fullscreen: NO
 					 resizable: NO];
+	display.size = of_dimension(800, 600);
+	display.windowPosition = of_point(100, 100);
+	display.windowTitle = @"ObjGameKit test";
+
+	of_log(@"Display is %.fx%.f at (%.f, %.f)",
+	    display.size.width, display.size.height,
+	    display.windowPosition.x, display.windowPosition.y);
+
 	eventQueue = [[OGKEventQueue alloc] init];
 	eventQueue.delegate = self;
 

@@ -27,9 +27,14 @@
 	ALLEGRO_DISPLAY *display;
 }
 
+@property (assign) of_point_t windowPosition;
+@property (assign) of_dimension_t size;
+
 - initWithSize: (of_dimension_t)size
+      position: (of_point_t)position
     fullscreen: (BOOL)fullscreen
      resizable: (BOOL)resizable;
+- (void)setWindowTitle: (OFString*)title;
 - (void)update;
 - (ALLEGRO_DISPLAY*)OGK_allegroDisplay;
 @end

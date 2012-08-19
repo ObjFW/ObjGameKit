@@ -32,6 +32,7 @@
 }
 
 - initWithSize: (of_dimension_t)size
+      position: (of_point_t)position
     fullscreen: (BOOL)fullscreen
      resizable: (BOOL)resizable
 {
@@ -44,6 +45,8 @@
 	flags |= ALLEGRO_OPENGL_3_0;
 	flags |= ALLEGRO_OPENGL_FORWARD_COMPATIBLE;
 #endif
+
+	al_set_new_window_position(position.x, position.y);
 
 	if (fullscreen)
 		flags |= ALLEGRO_FULLSCREEN;
@@ -64,6 +67,38 @@
 {
 	if (display != NULL)
 		al_destroy_display(display);
+}
+
+- (void)setWindowTitle: (OFString*)title
+{
+	al_set_window_title(display,
+	    [title cStringWithEncoding: OF_STRING_ENCODING_NATIVE]);
+}
+
+- (void)setWindowPosition: (of_point_t)position
+{
+	al_set_window_position(display, position.x, position.y);
+}
+
+- (of_point_t)windowPosition
+{
+	int x, y;
+
+	al_get_window_position(display, &x, &y);
+
+	return of_point(x, y);
+}
+
+- (void)setSize: (of_dimension_t)size
+{
+	al_resize_display(display, size.width, size.height);
+}
+
+- (of_dimension_t)size
+{
+	return of_dimension(
+	    al_get_display_width(display),
+	    al_get_display_height(display));
 }
 
 - (void)update
