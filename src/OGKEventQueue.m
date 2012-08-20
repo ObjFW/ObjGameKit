@@ -63,36 +63,64 @@ static int mouse_retain_count = 0;
 			object_setClass(event, [OGKCloseEvent class]);
 
 			if ([delegate respondsToSelector:
-			    @selector(displayWasClosed:)])
-				[delegate displayWasClosed:
-				    (OGKCloseEvent*)event];
+			    @selector(display:wasClosed:)]) {
+				OGKDisplay *display = [OGKDisplay
+				    OGK_displayForAllegroDisplay:
+				    allegroEvent->display.source];
+				OGKCloseEvent *closeEvent =
+				    (OGKCloseEvent*)event;
+
+				[delegate display: display
+					wasClosed: closeEvent];
+			}
 
 			break;
 		case ALLEGRO_EVENT_KEY_DOWN:
 			object_setClass(event, [OGKKeyPressEvent class]);
 
 			if ([delegate respondsToSelector:
-			    @selector(keyWasPressed:)])
-				[delegate keyWasPressed:
-				    (OGKKeyPressEvent*)event];
+			    @selector(keyWasPressed:display:)]) {
+				OGKDisplay *display = [OGKDisplay
+				    OGK_displayForAllegroDisplay:
+				    allegroEvent->keyboard.display];
+				OGKKeyPressEvent *keyPressEvent =
+				    (OGKKeyPressEvent*)event;
+
+				[delegate keyWasPressed: keyPressEvent
+						display: display];
+			}
 
 			break;
 		case ALLEGRO_EVENT_KEY_UP:
 			object_setClass(event, [OGKKeyReleaseEvent class]);
 
 			if ([delegate respondsToSelector:
-			    @selector(keyWasReleased:)])
-				[delegate keyWasReleased:
-				    (OGKKeyReleaseEvent*)event];
+			    @selector(keyWasReleased:display:)]) {
+				OGKDisplay *display = [OGKDisplay
+				    OGK_displayForAllegroDisplay:
+				    allegroEvent->keyboard.display];
+				OGKKeyReleaseEvent *keyReleaseEvent =
+				    (OGKKeyReleaseEvent*)event;
+
+				[delegate keyWasReleased: keyReleaseEvent
+						 display: display];
+			}
 
 			break;
 		case ALLEGRO_EVENT_MOUSE_AXES:
 			object_setClass(event, [OGKMouseMovedEvent class]);
 
 			if ([delegate respondsToSelector:
-			    @selector(mouseWasMoved:)])
-				[delegate mouseWasMoved:
-				    (OGKMouseMovedEvent*)event];
+			    @selector(mouseWasMoved:display:)]) {
+				OGKDisplay *display = [OGKDisplay
+				    OGK_displayForAllegroDisplay:
+				    allegroEvent->mouse.display];
+				OGKMouseMovedEvent *mouseMovedEvent =
+				    (OGKMouseMovedEvent*)event;
+
+				[delegate mouseWasMoved: mouseMovedEvent
+						display: display];
+			}
 
 			break;
 		case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
@@ -100,9 +128,16 @@ static int mouse_retain_count = 0;
 			    [OGKMouseButtonPressedEvent class]);
 
 			if ([delegate respondsToSelector:
-			    @selector(mouseButtonWasPressed:)])
-				[delegate mouseButtonWasPressed:
-				    (OGKMouseButtonPressedEvent*)event];
+			    @selector(mouseButtonWasPressed:display:)]) {
+				OGKDisplay *display = [OGKDisplay
+				    OGK_displayForAllegroDisplay:
+				    allegroEvent->mouse.display];
+				OGKMouseButtonPressedEvent *pressedEvent =
+				    (OGKMouseButtonPressedEvent*)event;
+
+				[delegate mouseButtonWasPressed: pressedEvent
+							display: display];
+			}
 
 			break;
 		case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
@@ -110,9 +145,16 @@ static int mouse_retain_count = 0;
 			    [OGKMouseButtonReleasedEvent class]);
 
 			if ([delegate respondsToSelector:
-			    @selector(mouseButtonWasReleased:)])
-				[delegate mouseButtonWasReleased:
-				    (OGKMouseButtonReleasedEvent*)event];
+			    @selector(mouseButtonWasReleased:display:)]) {
+				OGKDisplay *display = [OGKDisplay
+				    OGK_displayForAllegroDisplay:
+				    allegroEvent->mouse.display];
+				OGKMouseButtonReleasedEvent *releasedEvent =
+				    (OGKMouseButtonReleasedEvent*)event;
+
+				[delegate mouseButtonWasReleased: releasedEvent
+							 display: display];
+			}
 
 			break;
 		}

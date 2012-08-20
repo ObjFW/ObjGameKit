@@ -20,6 +20,10 @@
 
 #import "OGKDisplay.h"
 
+static OFMutex *mutex = nil;
+static OFMutableArray *displays = nil;
+static OFDataArray *allegroDisplays = nil;
+
 @implementation OGKDisplay
 + (void)initialize
 {
@@ -29,6 +33,28 @@
 	if (!al_install_system(ALLEGRO_VERSION_INT, NULL))
 		@throw [OFInitializationFailedException
 		    exceptionWithClass: self];
+
+	mutex = [[OFMutex alloc] init];
+	displays = [[OFMutableArray alloc] init];
+	allegroDisplays = [[OFDataArray alloc]
+	    initWithItemSize: sizeof(ALLEGRO_DISPLAY*)];
+}
+
++ OGK_displayForAllegroDisplay: (ALLEGRO_DISPLAY*)display
+{
+	[mutex lock];
+	@try {
+		ALLEGRO_DISPLAY **cArray = [allegroDisplays cArray];
+		size_t i, count = [allegroDisplays count];
+
+		for (i = 0; i < count; i++)
+			if (cArray[i] == display)
+				return [displays objectAtIndex: i];
+	} @finally {
+		[mutex unlock];
+	}
+
+	return nil;
 }
 
 - initWithSize: (of_dimension_t)size
@@ -60,11 +86,29 @@
 		@throw [OFInitializationFailedException
 		    exceptionWithClass: [self class]];
 
+	[mutex lock];
+	@try {
+		[allegroDisplays addItem: &display];
+		[displays addObject: self];
+	} @finally {
+		[mutex unlock];
+	}
+
 	return self;
 }
 
 - (void)dealloc
 {
+	[mutex lock];
+	@try {
+		size_t index = [displays indexOfObject: self];
+
+		[allegroDisplays removeItemAtIndex: index];
+		[displays removeObjectAtIndex: index];
+	} @finally {
+		[mutex unlock];
+	}
+
 	if (display != NULL)
 		al_destroy_display(display);
 }

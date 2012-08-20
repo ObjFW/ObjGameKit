@@ -27,13 +27,18 @@
 
 @protocol OGKEventQueueDelegate <OFObject>
 @optional
-- (void)displayWasClosed: (OGKCloseEvent*)event;
-// FIXME: Those need to get the OGKDisplay passed!
-- (void)keyWasPressed: (OGKKeyPressEvent*)event;
-- (void)keyWasReleased: (OGKKeyReleaseEvent*)event;
-- (void)mouseWasMoved: (OGKMouseMovedEvent*)event;
-- (void)mouseButtonWasPressed: (OGKMouseButtonPressedEvent*)event;
-- (void)mouseButtonWasReleased: (OGKMouseButtonReleasedEvent*)event;
+- (void)display: (OGKDisplay*)display
+      wasClosed: (OGKCloseEvent*)event;
+- (void)keyWasPressed: (OGKKeyPressEvent*)event
+	      display: (OGKDisplay*)display;
+- (void)keyWasReleased: (OGKKeyReleaseEvent*)event
+	       display: (OGKDisplay*)display;
+- (void)mouseWasMoved: (OGKMouseMovedEvent*)event
+	      display: (OGKDisplay*)display;
+- (void)mouseButtonWasPressed: (OGKMouseButtonPressedEvent*)event
+		      display: (OGKDisplay*)display;
+- (void)mouseButtonWasReleased: (OGKMouseButtonReleasedEvent*)event
+		      display: (OGKDisplay*)display;
 @end
 
 @interface OGKEventQueue: OFObject

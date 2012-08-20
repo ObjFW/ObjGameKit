@@ -29,6 +29,7 @@
 	OGKDisplay *display;
 	OGKEventQueue *eventQueue;
 	OGKBitmap *bitmap;
+	of_point_t position;
 	BOOL running;
 }
 @end

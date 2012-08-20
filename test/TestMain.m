@@ -27,31 +27,38 @@
 OF_APPLICATION_DELEGATE(TestMain)
 
 @implementation TestMain
-- (void)displayWasClosed: (OGKCloseEvent*)event
+- (void)display: (OGKDisplay*)display
+      wasClosed: (OGKCloseEvent*)event
 {
 	running = NO;
 }
 
 - (void)keyWasPressed: (OGKKeyPressEvent*)event
+	      display: (OGKDisplay*)display
 {
 	of_log(@"Pressed: %d", event.keycode);
 }
 
 - (void)keyWasReleased: (OGKKeyReleaseEvent*)event
+	       display: (OGKDisplay*)display
 {
 	of_log(@"Released: %d", event.keycode);
 }
 
 - (void)mouseWasMoved: (OGKMouseMovedEvent*)event
+	      display: (OGKDisplay*)display
 {
 	of_log(@"Mouse moved: X=%.f(%.f) Y=%.f(%.f) WX=%.f(%.f) WY=%.f(%.f)",
 	    event.cursor.x, event.deltaCursor.x,
 	    event.cursor.y, event.deltaCursor.y,
 	    event.wheel.x, event.deltaWheel.x,
 	    event.wheel.y, event.deltaWheel.y);
+
+	position = event.cursor;
 }
 
 - (void)mouseButtonWasPressed: (OGKMouseButtonPressedEvent*)event
+		      display: (OGKDisplay*)display
 {
 	of_log(@"Mouse button was pressed: %d (X=%.f Y=%.f WX=%.f WY=%.f)",
 	    event.button, event.cursor.x, event.cursor.y,
@@ -59,6 +66,7 @@ OF_APPLICATION_DELEGATE(TestMain)
 }
 
 - (void)mouseButtonWasReleased: (OGKMouseButtonPressedEvent*)event
+		       display: (OGKDisplay*)display
 {
 	of_log(@"Mouse button was released: %d (X=%.f Y=%.f WX=%.f WY=%.f)",
 	    event.button, event.cursor.x, event.cursor.y,
@@ -73,7 +81,7 @@ OF_APPLICATION_DELEGATE(TestMain)
 - (void)draw
 {
 	[OGKBitmap clearToColor: OGK_COLOR_BLACK];
-	[bitmap drawAtPosition: of_point(160, 120)];
+	[bitmap drawAtPosition: position];
 	[display update];
 }
 

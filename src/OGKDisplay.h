@@ -30,6 +30,7 @@
 @property (assign) of_point_t windowPosition;
 @property (assign) of_dimension_t size;
 
++ OGK_displayForAllegroDisplay: (ALLEGRO_DISPLAY*)display;
 - initWithSize: (of_dimension_t)size
       position: (of_point_t)position
     fullscreen: (BOOL)fullscreen
