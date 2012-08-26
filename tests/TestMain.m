@@ -75,7 +75,7 @@ OF_APPLICATION_DELEGATE(TestMain)
 
 - (void)handleEvents
 {
-	[eventQueue handleNextEvent];
+	[eventQueue handleEvents];
 }
 
 - (void)draw

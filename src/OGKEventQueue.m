@@ -53,7 +53,7 @@ static int mouse_retain_count = 0;
 		al_destroy_event_queue(eventQueue);
 }
 
-- (void)handleNextEvent
+- (void)handleEvents
 {
 	OGKEvent *event = [[OGKEvent alloc] init];
 	ALLEGRO_EVENT *allegroEvent = [event OGK_allegroEvent];

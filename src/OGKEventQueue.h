@@ -50,7 +50,7 @@
 
 @property (unsafe_unretained) id <OGKEventQueueDelegate> delegate;
 
-- (void)handleNextEvent;
+- (void)handleEvents;
 - (void)registerDisplay: (OGKDisplay*)display;
 - (void)unregisterDisplay: (OGKDisplay*)display;
 - (void)registerKeyboard;
