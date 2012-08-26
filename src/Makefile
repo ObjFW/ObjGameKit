@@ -11,6 +11,8 @@ INCLUDES = ${SRCS:.m=.h}	\
 	   ObjGameKit.h
 
 include ../buildsys.mk
+include ../extra.mk
 
 CPPFLAGS += -DOGK_INTERNAL
 LD = ${OBJC}
+LDFLAGS += ${REEXPORT_ALLEGRO}
