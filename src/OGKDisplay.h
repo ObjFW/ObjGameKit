@@ -18,9 +18,14 @@
  *   3.) This notice may not be removed or altered from any source distribution.
  */
 
+/* For NAN */
+#include <math.h>
+
 #include <allegro5/allegro.h>
 
 #import <ObjFW/ObjFW.h>
+
+#define OGK_DISPLAY_POSITION_DEFAULT of_point(NAN, NAN)
 
 typedef enum ogk_display_flags_t {
 	OGK_DISPLAY_FLAGS_FULLSCREEN	= 0x01,

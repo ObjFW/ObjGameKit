@@ -65,7 +65,10 @@ static OFDataArray *allegroDisplays = nil;
 
 	self = [super init];
 
-	al_set_new_window_position(position.x, position.y);
+	if (isnan(position.x) || isnan(position.y))
+		al_set_new_window_position(INT_MAX, INT_MAX);
+	else
+		al_set_new_window_position(position.x, position.y);
 
 	if (flags & OGK_DISPLAY_FLAGS_FULLSCREEN)
 		allegroFlags |= ALLEGRO_FULLSCREEN;
@@ -128,6 +131,9 @@ static OFDataArray *allegroDisplays = nil;
 	int x, y;
 
 	al_get_window_position(display, &x, &y);
+
+	if (x == INT_MAX && y == INT_MAX)
+		return of_point(NAN, NAN);
 
 	return of_point(x, y);
 }
