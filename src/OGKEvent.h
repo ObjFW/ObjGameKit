@@ -22,10 +22,6 @@
 
 #import <ObjFW/ObjFW.h>
 
-typedef enum ogk_event_type_t {
-	OGK_EVENT_TYPE_CLOSE = 1
-} ogk_event_type_t;
-
 @interface OGKEvent: OFObject
 {
 	ALLEGRO_EVENT event;
