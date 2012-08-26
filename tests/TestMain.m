@@ -87,7 +87,9 @@ OF_APPLICATION_DELEGATE(TestMain)
 
 - (void)applicationDidFinishLaunching
 {
-	ogk_display_flags_t flags = OGK_DISPLAY_FLAGS_RESIZABLE;
+	ogk_display_flags_t flags =
+	    OGK_DISPLAY_FLAGS_RESIZABLE |
+	    OGK_DISPLAY_FLAGS_VSYNC;
 
 	display = [[OGKDisplay alloc] initWithSize: of_dimension(640, 480)
 					  position: of_point(200, 200)

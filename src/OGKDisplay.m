@@ -81,6 +81,11 @@ static OFDataArray *allegroDisplays = nil;
 	if (flags & OGK_DISPLAY_FLAGS_OPENGL_3_ONLY)
 		allegroFlags |= ALLEGRO_OPENGL_FORWARD_COMPATIBLE;
 
+	if (flags & OGK_DISPLAY_FLAGS_VSYNC)
+		al_set_new_display_option(ALLEGRO_VSYNC, 1, ALLEGRO_SUGGEST);
+	else
+		al_set_new_display_option(ALLEGRO_VSYNC, 0, ALLEGRO_SUGGEST);
+
 	al_set_new_display_flags(allegroFlags);
 	display = al_create_display(size.width, size.height);
 
