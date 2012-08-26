@@ -49,7 +49,7 @@ static OFDataArray *allegroDisplays = nil;
 
 		for (i = 0; i < count; i++)
 			if (cArray[i] == display)
-				return [displays objectAtIndex: i];
+				return displays[i];
 	} @finally {
 		[mutex unlock];
 	}
@@ -59,27 +59,26 @@ static OFDataArray *allegroDisplays = nil;
 
 - initWithSize: (of_dimension_t)size
       position: (of_point_t)position
-    fullscreen: (BOOL)fullscreen
-     resizable: (BOOL)resizable
+	 flags: (ogk_display_flags_t)flags
 {
-	int flags = 0;
+	int allegroFlags = 0;
 
 	self = [super init];
 
-#if 0
-	/* TODO: Find a nice way to set these when requested */
-	flags |= ALLEGRO_OPENGL_3_0;
-	flags |= ALLEGRO_OPENGL_FORWARD_COMPATIBLE;
-#endif
-
 	al_set_new_window_position(position.x, position.y);
 
-	if (fullscreen)
-		flags |= ALLEGRO_FULLSCREEN;
-	else if (resizable)
-		flags |= ALLEGRO_RESIZABLE;
+	if (flags & OGK_DISPLAY_FLAGS_FULLSCREEN)
+		allegroFlags |= ALLEGRO_FULLSCREEN;
+	if (flags & OGK_DISPLAY_FLAGS_RESIZABLE)
+		allegroFlags |= ALLEGRO_RESIZABLE;
+	if (flags & OGK_DISPLAY_FLAGS_OPENGL)
+		allegroFlags |= ALLEGRO_OPENGL;
+	if (flags & OGK_DISPLAY_FLAGS_OPENGL_3)
+		allegroFlags |= ALLEGRO_OPENGL_3_0;
+	if (flags & OGK_DISPLAY_FLAGS_OPENGL_3_ONLY)
+		allegroFlags |= ALLEGRO_OPENGL_FORWARD_COMPATIBLE;
 
-	al_set_new_display_flags(flags);
+	al_set_new_display_flags(allegroFlags);
 	display = al_create_display(size.width, size.height);
 
 	if (display == NULL)

@@ -87,10 +87,11 @@ OF_APPLICATION_DELEGATE(TestMain)
 
 - (void)applicationDidFinishLaunching
 {
+	ogk_display_flags_t flags = OGK_DISPLAY_FLAGS_RESIZABLE;
+
 	display = [[OGKDisplay alloc] initWithSize: of_dimension(640, 480)
 					  position: of_point(200, 200)
-					fullscreen: NO
-					 resizable: NO];
+					     flags: flags];
 	display.size = of_dimension(800, 600);
 	display.windowPosition = of_point(100, 100);
 	display.windowTitle = @"ObjGameKit test";

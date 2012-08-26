@@ -22,6 +22,14 @@
 
 #import <ObjFW/ObjFW.h>
 
+typedef enum ogk_display_flags_t {
+	OGK_DISPLAY_FLAGS_FULLSCREEN	= 0x01,
+	OGK_DISPLAY_FLAGS_RESIZABLE	= 0x02,
+	OGK_DISPLAY_FLAGS_OPENGL	= 0x04,
+	OGK_DISPLAY_FLAGS_OPENGL_3	= 0x08,
+	OGK_DISPLAY_FLAGS_OPENGL_3_ONLY	= 0x10
+} ogk_display_flags_t;
+
 @interface OGKDisplay: OFObject
 {
 	ALLEGRO_DISPLAY *display;
@@ -33,8 +41,7 @@
 + OGK_displayForAllegroDisplay: (ALLEGRO_DISPLAY*)display;
 - initWithSize: (of_dimension_t)size
       position: (of_point_t)position
-    fullscreen: (BOOL)fullscreen
-     resizable: (BOOL)resizable;
+	 flags: (ogk_display_flags_t)flags;
 - (void)setWindowTitle: (OFString*)title;
 - (void)update;
 - (ALLEGRO_DISPLAY*)OGK_allegroDisplay;
