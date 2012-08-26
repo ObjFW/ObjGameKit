@@ -1,8 +1,5 @@
-all:
-	@cd src && ${MAKE} ${MFLAGS}
-	@cd test && ${MAKE} ${MFLAGS}
+SUBDIRS = src tests
 
-clean:
-	@cd src && ${MAKE} ${MFLAGS} clean
-	@cd test && ${MAKE} ${MFLAGS} clean
-	@rm -f *~
+include buildsys.mk
+
+tests: src

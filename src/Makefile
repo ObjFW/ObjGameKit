@@ -1,9 +1,15 @@
-ALLEGRO_MODULES = allegro-5.0 allegro_main-5.0 allegro_image-5.0
+SHARED_LIB = ${LIB_PREFIX}objgamekit${LIB_SUFFIX}
+LIB_MAJOR = 0
+LIB_MINOR = 0
 
-all:
-	@mkdir -p build
-	@objfw-compile --lib 0.0 -o objgamekit --builddir build *.m \
-		--arc `pkg-config --cflags --libs ${ALLEGRO_MODULES}`
+SRCS = OGKBitmap.m	\
+       OGKDisplay.m	\
+       OGKEvent.m	\
+       OGKEventQueue.m
 
-clean:
-	@rm -fr build libobjgamekit.* *~
+INCLUDES = ${SRCS:.m=.h}
+
+include ../buildsys.mk
+
+CPPFLAGS += -DOGK_INTERNAL
+LD = ${OBJC}
