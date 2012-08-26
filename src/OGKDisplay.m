@@ -30,7 +30,7 @@ static OFDataArray *allegroDisplays = nil;
 	if (self != [OGKDisplay class])
 		return;
 
-	if (!al_install_system(ALLEGRO_VERSION_INT, NULL))
+	if (!al_init())
 		@throw [OFInitializationFailedException
 		    exceptionWithClass: self];
 
@@ -108,7 +108,7 @@ static OFDataArray *allegroDisplays = nil;
 		[mutex unlock];
 	}
 
-	if (display != NULL)
+	if (display != NULL && al_is_system_installed())
 		al_destroy_display(display);
 }
 

@@ -33,7 +33,7 @@ static int mouse_retain_count = 0;
 	if (self != [OGKEventQueue class])
 		return;
 
-	if (!al_install_system(ALLEGRO_VERSION_INT, NULL))
+	if (!al_init())
 		@throw [OFInitializationFailedException
 		    exceptionWithClass: self];
 }
@@ -49,7 +49,8 @@ static int mouse_retain_count = 0;
 
 - (void)dealloc
 {
-	al_destroy_event_queue(eventQueue);
+	if (al_is_system_installed())
+		al_destroy_event_queue(eventQueue);
 }
 
 - (void)handleNextEvent

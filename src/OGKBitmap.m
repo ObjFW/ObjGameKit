@@ -32,8 +32,7 @@ ogk_color_t OGK_COLOR_BLACK = { 0, 0, 0, 1 };
 	if (self != [OGKBitmap class])
 		return;
 
-	if (!al_install_system(ALLEGRO_VERSION_INT, NULL) ||
-	    !al_init_image_addon())
+	if (!al_init() || !al_init_image_addon())
 		@throw [OFInitializationFailedException
 		    exceptionWithClass: self];
 }
@@ -77,6 +76,12 @@ ogk_color_t OGK_COLOR_BLACK = { 0, 0, 0, 1 };
 		    exceptionWithClass: [self class]];
 
 	return self;
+}
+
+- (void)dealloc
+{
+	if (bitmap != NULL && al_is_system_installed())
+		al_destroy_bitmap(bitmap);
 }
 
 - (void)drawAtPosition: (of_point_t)position

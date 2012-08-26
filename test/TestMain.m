@@ -116,13 +116,4 @@ OF_APPLICATION_DELEGATE(TestMain)
 		}
 	}
 }
-
-- (void)applicationWillTerminate
-{
-	/* Make sure they don't get deallocated after al_uninstall_system() */
-	display = nil;
-	eventQueue = nil;
-
-	al_uninstall_system();
-}
 @end
