@@ -11,4 +11,5 @@ buildsys.mk
 config.log
 config.status
 configure
+extra.mk
 tests/tests
