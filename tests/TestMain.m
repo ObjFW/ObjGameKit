@@ -73,8 +73,9 @@ OF_APPLICATION_DELEGATE(TestMain)
 	    event.wheel.y, event.deltaWheel.y);
 
 	position = event.cursor;
-	scale = of_dimension(bitmap.size.width + event.wheel.x,
-	    bitmap.size.height + event.wheel.y);
+	scale = of_dimension(
+	    (bitmap.size.width + event.wheel.x) / bitmap.size.width,
+	    (bitmap.size.height + event.wheel.y) / bitmap.size.height);
 }
 
 - (void)mouseButtonWasPressed: (OGKMouseButtonPressedEvent*)event
@@ -133,7 +134,7 @@ OF_APPLICATION_DELEGATE(TestMain)
 
 	bitmap = [[OGKBitmap alloc] initWithFile: @"test.bmp"];
 	position = of_point(display.size.width / 2, display.size.height / 2);
-	scale = bitmap.size;
+	scale = of_dimension(1, 1);
 	tint = ogk_color(1, 1, 1, 0);
 
 	for (running = YES; running;) {

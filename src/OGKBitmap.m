@@ -132,7 +132,8 @@ ogk_color_to_allegro(ogk_color_t color)
 {
 	al_draw_scaled_bitmap(bitmap, 0, 0, al_get_bitmap_width(bitmap),
 	    al_get_bitmap_height(bitmap), position.x, position.y,
-	    scale.width, scale.height, 0);
+	    scale.width * al_get_bitmap_width(bitmap),
+	    scale.height * al_get_bitmap_height(bitmap), 0);
 }
 
 - (void)drawAtPosition: (of_point_t)position
@@ -148,7 +149,8 @@ ogk_color_to_allegro(ogk_color_t color)
 {
 	al_draw_scaled_bitmap(bitmap, region.origin.x, region.origin.y,
 	    region.size.width, region.size.height, position.x, position.y,
-	    scale.width, scale.height, 0);
+	    scale.width * al_get_bitmap_width(bitmap),
+	    scale.height * al_get_bitmap_height(bitmap), 0);
 }
 
 - (void)drawAtPosition: (of_point_t)position
@@ -164,7 +166,8 @@ ogk_color_to_allegro(ogk_color_t color)
 {
 	al_draw_tinted_scaled_bitmap(bitmap, ogk_color_to_allegro(tint),
 	    0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap),
-	    position.x, position.y, scale.width, scale.height, 0);
+	    position.x, position.y, scale.width * al_get_bitmap_width(bitmap),
+	    scale.height * al_get_bitmap_height(bitmap), 0);
 }
 
 - (void)drawAtPosition: (of_point_t)position
@@ -183,8 +186,9 @@ ogk_color_to_allegro(ogk_color_t color)
 {
 	al_draw_tinted_scaled_bitmap(bitmap, ogk_color_to_allegro(tint),
 	    region.origin.x, region.origin.y, region.size.width,
-	    region.size.height, position.x, position.y, scale.width,
-	    scale.height, 0);
+	    region.size.height, position.x, position.y,
+	    scale.width * al_get_bitmap_width(bitmap),
+	    scale.height * al_get_bitmap_height(bitmap), 0);
 }
 
 - (ALLEGRO_BITMAP*)OGK_allegroBitmap
