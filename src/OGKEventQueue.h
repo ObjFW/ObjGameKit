@@ -33,6 +33,8 @@
 	      display: (OGKDisplay*)display;
 - (void)keyWasReleased: (OGKKeyReleaseEvent*)event
 	       display: (OGKDisplay*)display;
+- (void)characterWasTyped: (OGKCharacterTypedEvent*)event
+		  display: (OGKDisplay*)display;
 - (void)mouseWasMoved: (OGKMouseMovedEvent*)event
 	      display: (OGKDisplay*)display;
 - (void)mouseButtonWasPressed: (OGKMouseButtonPressedEvent*)event

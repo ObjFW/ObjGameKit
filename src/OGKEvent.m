@@ -43,6 +43,26 @@
 @implementation OGKKeyReleaseEvent
 @end
 
+@implementation OGKCharacterTypedEvent
+- (of_unichar_t)character
+{
+	if (event.keyboard.unichar < 1)
+		return 0xFFFD;
+
+	return event.keyboard.unichar;
+}
+
+- (unsigned)modifiers
+{
+	return event.keyboard.modifiers;
+}
+
+- (BOOL)repeated
+{
+	return event.keyboard.repeat;
+}
+@end
+
 @implementation OGKMouseEvent
 - (of_point_t)cursor
 {

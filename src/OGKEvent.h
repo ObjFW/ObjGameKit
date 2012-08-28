@@ -45,6 +45,12 @@
 @interface OGKKeyReleaseEvent: OGKKeyboardEvent
 @end
 
+@interface OGKCharacterTypedEvent: OGKKeyboardEvent
+@property (readonly, assign) of_unichar_t character;
+@property (readonly, assign) unsigned modifiers;
+@property (readonly, assign) BOOL repeated;
+@end
+
 @interface OGKMouseEvent: OGKEvent
 @property (readonly, assign) of_point_t cursor;
 @property (readonly, assign) of_point_t wheel;

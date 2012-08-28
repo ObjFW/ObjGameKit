@@ -108,6 +108,22 @@ static int mouse_retain_count = 0;
 			}
 
 			break;
+		case ALLEGRO_EVENT_KEY_CHAR:
+			object_setClass(event, [OGKCharacterTypedEvent class]);
+
+			if ([delegate respondsToSelector:
+			    @selector(characterWasTyped:display:)]) {
+				OGKDisplay *display = [OGKDisplay
+				    OGK_displayForAllegroDisplay:
+				    allegroEvent->keyboard.display];
+				OGKCharacterTypedEvent *characterTypedEvent =
+				    (OGKCharacterTypedEvent*)event;
+
+				[delegate characterWasTyped: characterTypedEvent
+						    display: display];
+			}
+
+			break;
 		case ALLEGRO_EVENT_MOUSE_AXES:
 			object_setClass(event, [OGKMouseMovedEvent class]);
 

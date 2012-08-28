@@ -37,6 +37,19 @@ OF_APPLICATION_DELEGATE(TestMain)
 	      display: (OGKDisplay*)display
 {
 	of_log(@"Pressed: %d", event.keycode);
+}
+
+- (void)keyWasReleased: (OGKKeyReleaseEvent*)event
+	       display: (OGKDisplay*)display
+{
+	of_log(@"Released: %d", event.keycode);
+}
+
+- (void)characterWasTyped: (OGKCharacterTypedEvent*)event
+		  display: (OGKDisplay*)display
+{
+	of_log(@"Character typed: %u (keycode=%d, modifiers=%d, repeated=%d)",
+	    event.character, event.keycode, event.modifiers, event.repeated);
 
 	switch (event.keycode) {
 	case OGK_KEY_R:
@@ -61,12 +74,6 @@ OF_APPLICATION_DELEGATE(TestMain)
 		running = NO;
 		break;
 	}
-}
-
-- (void)keyWasReleased: (OGKKeyReleaseEvent*)event
-	       display: (OGKDisplay*)display
-{
-	of_log(@"Released: %d", event.keycode);
 }
 
 - (void)mouseWasMoved: (OGKMouseMovedEvent*)event
