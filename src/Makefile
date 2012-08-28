@@ -8,7 +8,8 @@ SRCS = OGKBitmap.m	\
        OGKEventQueue.m
 
 INCLUDES = ${SRCS:.m=.h}	\
-	   ObjGameKit.h
+	   ObjGameKit.h		\
+	   keycodes.h
 
 include ../buildsys.mk
 include ../extra.mk
