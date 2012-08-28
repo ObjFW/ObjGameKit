@@ -24,6 +24,12 @@
 #import "OGKBitmap.h"
 #import "TestMain.h"
 
+@interface TestMain ()
+- (void)draw;
+- (void)handleEvents;
+- (void)toggleAnimation;
+@end
+
 OF_APPLICATION_DELEGATE(TestMain)
 
 @implementation TestMain
@@ -70,6 +76,9 @@ OF_APPLICATION_DELEGATE(TestMain)
 	case OGK_KEY_RIGHT:
 		rotation.angle += M_PI / 128;
 		break;
+	case OGK_KEY_A:
+		[self toggleAnimation];
+		break;
 	case OGK_KEY_Q:
 		running = NO;
 		break;
@@ -114,12 +123,41 @@ OF_APPLICATION_DELEGATE(TestMain)
 
 - (void)draw
 {
+	ogk_rotation_t localRotation;
+	@synchronized (self) {
+		localRotation = rotation;
+	}
+
 	[OGKBitmap clearToColor: OGK_COLOR_BLACK];
 	[bitmap drawAtPosition: position
 			 scale: scale
-		      rotation: rotation
+		      rotation: localRotation
 			  tint: tint];
 	[display update];
+}
+
+- (void)toggleAnimation
+{
+	@synchronized (self) {
+		if (animationThread != nil) {
+			stopAnimation = YES;
+			[animationThread join];
+			animationThread = nil;
+			stopAnimation = NO;
+			return;
+		}
+
+		animationThread = [OFThread threadWithBlock: ^ (id object) {
+			while (!stopAnimation) {
+				@synchronized (self) {
+					rotation.angle -= M_PI / 256;
+				}
+				[OFThread sleepForTimeInterval: 0.01];
+			}
+			return nil;
+		}];
+		[animationThread start];
+	}
 }
 
 - (void)applicationDidFinishLaunching

@@ -34,5 +34,7 @@
 	BOOL running;
 	ogk_rotation_t rotation;
 	ogk_color_t tint;
+	OFThread *animationThread;
+	BOOL stopAnimation;
 }
 @end
