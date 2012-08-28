@@ -191,6 +191,41 @@ ogk_color_to_allegro(ogk_color_t color)
 	    scale.height * al_get_bitmap_height(bitmap), 0);
 }
 
+- (void)drawAtPosition: (of_point_t)position
+	      rotation: (ogk_rotation_t)rotation
+{
+	al_draw_rotated_bitmap(bitmap, rotation.center.x, rotation.center.y,
+	    position.x, position.y, rotation.angle, 0);
+}
+
+- (void)drawAtPosition: (of_point_t)position
+		 scale: (of_dimension_t)scale
+	      rotation: (ogk_rotation_t)rotation
+{
+	al_draw_scaled_rotated_bitmap(bitmap, rotation.center.x,
+	    rotation.center.y, position.x, position.y, scale.width,
+	    scale.height, rotation.angle, 0);
+}
+
+- (void)drawAtPosition: (of_point_t)position
+	      rotation: (ogk_rotation_t)rotation
+		  tint: (ogk_color_t)tint
+{
+	al_draw_tinted_rotated_bitmap(bitmap, ogk_color_to_allegro(tint),
+	    rotation.center.x, rotation.center.y, position.x, position.y,
+	    rotation.angle, 0);
+}
+
+- (void)drawAtPosition: (of_point_t)position
+		 scale: (of_dimension_t)scale
+	      rotation: (ogk_rotation_t)rotation
+		  tint: (ogk_color_t)tint
+{
+	al_draw_tinted_scaled_rotated_bitmap(bitmap, ogk_color_to_allegro(tint),
+	    rotation.center.x, rotation.center.y, position.x, position.y,
+	    scale.width, scale.height, rotation.angle, 0);
+}
+
 - (ALLEGRO_BITMAP*)OGK_allegroBitmap
 {
 	return bitmap;

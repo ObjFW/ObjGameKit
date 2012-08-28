@@ -26,12 +26,25 @@ typedef struct ogk_color_t {
 	float red, green, blue, alpha;
 } ogk_color_t;
 
+typedef struct ogk_rotation_t {
+	of_point_t center;
+	float angle;
+} ogk_rotation_t;
+
 static OF_INLINE ogk_color_t
 ogk_color(float red, float green, float blue, float alpha)
 {
 	ogk_color_t color = { red, green, blue, alpha};
 
 	return color;
+}
+
+static OF_INLINE ogk_rotation_t
+ogk_rotation(float x, float y, float angle)
+{
+	ogk_rotation_t rotation = { of_point(x, y), angle };
+
+	return rotation;
 }
 
 extern ogk_color_t OGK_COLOR_BLACK;
@@ -67,6 +80,18 @@ extern ogk_color_t OGK_COLOR_BLACK;
 - (void)drawAtPosition: (of_point_t)position
 		region: (of_rectangle_t)region
 		 scale: (of_dimension_t)scale
+		  tint: (ogk_color_t)tint;
+- (void)drawAtPosition: (of_point_t)position
+	      rotation: (ogk_rotation_t)rotation;
+- (void)drawAtPosition: (of_point_t)position
+		 scale: (of_dimension_t)scale
+	      rotation: (ogk_rotation_t)rotation;
+- (void)drawAtPosition: (of_point_t)position
+	      rotation: (ogk_rotation_t)rotation
+		  tint: (ogk_color_t)tint;
+- (void)drawAtPosition: (of_point_t)position
+		 scale: (of_dimension_t)scale
+	      rotation: (ogk_rotation_t)rotation
 		  tint: (ogk_color_t)tint;
 - (ALLEGRO_BITMAP*)OGK_allegroBitmap;
 @end

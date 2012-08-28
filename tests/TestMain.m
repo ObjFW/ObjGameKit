@@ -51,6 +51,12 @@ OF_APPLICATION_DELEGATE(TestMain)
 	case OGK_KEY_N:
 		tint = ogk_color(1, 1, 1, 0);
 		break;
+	case OGK_KEY_LEFT:
+		rotation.angle -= M_PI / 128;
+		break;
+	case OGK_KEY_RIGHT:
+		rotation.angle += M_PI / 128;
+		break;
 	case OGK_KEY_Q:
 		running = NO;
 		break;
@@ -104,6 +110,7 @@ OF_APPLICATION_DELEGATE(TestMain)
 	[OGKBitmap clearToColor: OGK_COLOR_BLACK];
 	[bitmap drawAtPosition: position
 			 scale: scale
+		      rotation: rotation
 			  tint: tint];
 	[display update];
 }
@@ -135,6 +142,8 @@ OF_APPLICATION_DELEGATE(TestMain)
 	bitmap = [[OGKBitmap alloc] initWithFile: @"test.bmp"];
 	position = of_point(display.size.width / 2, display.size.height / 2);
 	scale = of_dimension(1, 1);
+	rotation = ogk_rotation(bitmap.size.width / 2, bitmap.size.height / 2,
+	    0);
 	tint = ogk_color(1, 1, 1, 0);
 
 	for (running = YES; running;) {

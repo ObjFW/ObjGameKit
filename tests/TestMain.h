@@ -32,6 +32,7 @@
 	of_point_t position;
 	of_dimension_t scale;
 	BOOL running;
+	ogk_rotation_t rotation;
 	ogk_color_t tint;
 }
 @end
