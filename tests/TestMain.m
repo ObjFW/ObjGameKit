@@ -37,6 +37,24 @@ OF_APPLICATION_DELEGATE(TestMain)
 	      display: (OGKDisplay*)display
 {
 	of_log(@"Pressed: %d", event.keycode);
+
+	switch (event.keycode) {
+	case OGK_KEY_R:
+		tint = ogk_color(1, 0.5, 0.5, 0);
+		break;
+	case OGK_KEY_G:
+		tint = ogk_color(0.5, 1, 0.5, 0);
+		break;
+	case OGK_KEY_B:
+		tint = ogk_color(0.5, 0.5, 1, 0);
+		break;
+	case OGK_KEY_N:
+		tint = ogk_color(1, 1, 1, 0);
+		break;
+	case OGK_KEY_Q:
+		running = NO;
+		break;
+	}
 }
 
 - (void)keyWasReleased: (OGKKeyReleaseEvent*)event
@@ -55,6 +73,8 @@ OF_APPLICATION_DELEGATE(TestMain)
 	    event.wheel.y, event.deltaWheel.y);
 
 	position = event.cursor;
+	scale = of_dimension(bitmap.size.width + event.wheel.x,
+	    bitmap.size.height + event.wheel.y);
 }
 
 - (void)mouseButtonWasPressed: (OGKMouseButtonPressedEvent*)event
@@ -81,7 +101,9 @@ OF_APPLICATION_DELEGATE(TestMain)
 - (void)draw
 {
 	[OGKBitmap clearToColor: OGK_COLOR_BLACK];
-	[bitmap drawAtPosition: position];
+	[bitmap drawAtPosition: position
+			 scale: scale
+			  tint: tint];
 	[display update];
 }
 
@@ -110,6 +132,9 @@ OF_APPLICATION_DELEGATE(TestMain)
 	[eventQueue registerMouse];
 
 	bitmap = [[OGKBitmap alloc] initWithFile: @"test.bmp"];
+	position = of_point(display.size.width / 2, display.size.height / 2);
+	scale = bitmap.size;
+	tint = ogk_color(1, 1, 1, 0);
 
 	for (running = YES; running;) {
 		@autoreleasepool {

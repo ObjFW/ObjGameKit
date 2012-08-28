@@ -41,10 +41,32 @@ extern ogk_color_t OGK_COLOR_BLACK;
 	ALLEGRO_BITMAP *bitmap;
 }
 
+@property (readonly) of_dimension_t size;
+
 + (void)setTarget: (id)target;
 + (void)clearToColor: (ogk_color_t)color;
 - initWithSize: (of_dimension_t)size;
 - initWithFile: (OFString*)file;
+- (instancetype)subBitmapWithRegion: (of_rectangle_t)region;
 - (void)drawAtPosition: (of_point_t)position;
+- (void)drawAtPosition: (of_point_t)position
+		region: (of_rectangle_t)region;
+- (void)drawAtPosition: (of_point_t)position
+		 scale: (of_dimension_t)scale;
+- (void)drawAtPosition: (of_point_t)position
+		region: (of_rectangle_t)region
+		 scale: (of_dimension_t)scale;
+- (void)drawAtPosition: (of_point_t)position
+		  tint: (ogk_color_t)tint;
+- (void)drawAtPosition: (of_point_t)position
+		 scale: (of_dimension_t)scale
+		  tint: (ogk_color_t)tint;
+- (void)drawAtPosition: (of_point_t)position
+		region: (of_rectangle_t)region
+		  tint: (ogk_color_t)tint;
+- (void)drawAtPosition: (of_point_t)position
+		region: (of_rectangle_t)region
+		 scale: (of_dimension_t)scale
+		  tint: (ogk_color_t)tint;
 - (ALLEGRO_BITMAP*)OGK_allegroBitmap;
 @end

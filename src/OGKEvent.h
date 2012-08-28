@@ -22,6 +22,8 @@
 
 #import <ObjFW/ObjFW.h>
 
+#import "keycodes.h"
+
 @interface OGKEvent: OFObject
 {
 	ALLEGRO_EVENT event;
