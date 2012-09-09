@@ -47,7 +47,7 @@
 - (of_unichar_t)character
 {
 	if (event.keyboard.unichar < 1)
-		return 0xFFFD;
+		return 0;
 
 	return event.keyboard.unichar;
 }

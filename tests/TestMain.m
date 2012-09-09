@@ -36,7 +36,7 @@ OF_APPLICATION_DELEGATE(TestMain)
 - (void)display: (OGKDisplay*)display
       wasClosed: (OGKCloseEvent*)event
 {
-	running = NO;
+	[OFApplication terminate];
 }
 
 - (void)keyWasPressed: (OGKKeyPressEvent*)event
@@ -80,7 +80,7 @@ OF_APPLICATION_DELEGATE(TestMain)
 		[self toggleAnimation];
 		break;
 	case OGK_KEY_Q:
-		running = NO;
+		[OFApplication terminate];
 		break;
 	}
 }
@@ -191,7 +191,7 @@ OF_APPLICATION_DELEGATE(TestMain)
 	    0);
 	tint = ogk_color(1, 1, 1, 0);
 
-	for (running = YES; running;) {
+	for (;;) {
 		@autoreleasepool {
 			[self handleEvents];
 			[self draw];
